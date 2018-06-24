@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView avatarImageView;
     private ProgressBar progressBar;
     private EditText editText;
-    RestAPI restAPI;
     RestAPIforUser restAPIforUser;
 
     @Override
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPIforUser = retrofit.create(RestAPIforUser.class);
-            restAPI = retrofit.create(RestAPI.class);
         } catch (Exception io) {
             mInfoTextView.setText("no retrofit: " + io.getMessage());
             return;
@@ -83,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void downloadOneUrl(Call<RetrofitModel> call) throws IOException {
+        userNameTextView.setText("");
         call.enqueue(new Callback<RetrofitModel>() {
             @Override
             public void onResponse(Call<RetrofitModel> call, Response<RetrofitModel> response) {
@@ -111,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void downloadAndParsingUsersRepos(Call<List<ReposRetrofitModel>> call) throws IOException {
+        userNameTextView.setText("");
         call.enqueue(new Callback<List<ReposRetrofitModel>>() {
             @Override
             public void onResponse(Call<List<ReposRetrofitModel>> call, Response<List<ReposRetrofitModel>> response) {
